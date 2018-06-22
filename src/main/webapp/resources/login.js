@@ -67,3 +67,14 @@ function memberOpen(){
 function returnOpen() {
     location.href = "main.html";
 }
+
+function flieUpload() {
+	console.log("업로드하자");
+	var screenW = screen.availWidth;
+    var screenH = screen.availHeight;
+    var posT=(screenH-375) / 2;
+    var posL=(screenW-784) / 2;
+    var Option = "width=715, height=410, top="+posT+",left="+posL+", resizable=no, scrollbars=no, status=no;";
+		
+	window.open("fileUpload.html", "", Option);
+}

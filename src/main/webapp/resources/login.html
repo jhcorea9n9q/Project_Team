@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Title </title>
+    <style>
+	html, body, section, h1 {
+		margin: 0;
+	}
+        h1 {
+            text-align: center;
+        }
+        form {
+            width: 80%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #id {width: 100%;}
+        #pw {width: 100%;}
+        #myPage {
+            display: none;
+        }
+        p {
+            height: 30px;
+        }
+        body  {
+            margin: 0;
+            padding: 0;           
+        }
+        .loader {
+            position: absolute;
+            top: 250px;
+            left: 50%;
+            transform: translate(-50%,50px);
+            width: 305px;
+            height: 305px;            
+        }
+       .loader span{
+            position: absolute;
+            background: rgba(0, 0, 0, .1);
+            box-shadow: 0 0 25px rgba(255, 255, 255, .5);
+            border: 8px solid rgba(0, 0, 0, .2);
+            border-top: 8px solid rgba(0, 0, 0, .1);
+            border-bottom: 8px solid rgba(0, 0, 0, .1);
+            animation: animate 30s alternate infinite;
+        }
+        .loader span:nth-child(1) {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            animation-delay: -0.1s;
+        }
+        .loader span:nth-child(2) {
+            top: 20px;
+            left: 20px;
+            bottom: 20px;
+            right: 20px;
+            animation-delay: -0.2s;
+        }
+        .loader span:nth-child(3) {
+            top: 40px;
+            left: 40px;
+            bottom: 40px;
+            right: 40px;
+            animation-delay: -0.3s;
+        }
+        .loader span:nth-child(4) {
+            top: 60px;
+            left: 60px;
+            bottom: 60px;
+            right: 60px;
+            animation-delay: -0.4s;
+        }
+        .loader span:nth-child(5) {
+            top: 80px;
+            left: 80px;
+            bottom: 80px;
+            right: 80px;
+            animation-delay: -0.5s;
+        } 
+        .loader span:nth-child(6) {
+            top: 100px;
+            left: 100px;
+            bottom: 100px;
+            right: 100px;
+            animation-delay: -0.6s;
+        }
+        .loader span:nth-child(7) {
+            top: 120px;
+            left: 120px;
+            bottom: 120px;
+            right: 120px;
+            animation-delay: -0.7s;
+        }
+        .loader span:nth-child(8) {
+            top: 140px;
+            left: 140px;
+            bottom: 140px;
+            right: 140px;
+            animation-delay: -0.8s;
+        }
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+                background: rgba(255,0,0,.2);
+            }
+            20% {
+                background: rgba(0,255,0,.2);
+            }
+            40% {
+                background: rgba(255,0,255,.2);
+            }
+            60% {
+                background: rgba(0,255,255,.2);
+            }
+            80% {
+                background: rgba(255,255,0,.2);
+            }
+            100% {
+                transform: rotate(720deg);
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="login.js"></script>
+	<script>
+	$(document).ready(function(){
+		seeUserInfo();
+		tryLogin();
+	});
+	</script>
+</head>
+
+<body>
+    <section id="login_home">
+        <h1 sytle="font-color: white;">로그인</h1>
+        <form id="login">
+            <input type="text" name="userEmail" id="id" value="" placeholder=" 이메일을 입력하세요." height="40px" maxlength="100" required="required">
+            <br>
+            <br>
+            <input type="password" name="userPassword" id="pw" value="" placeholder=" 비밀번호를 입력하세요." height="40px" maxlength="15" required="required">
+            <br>
+            <br>
+            <input type="submit" value="로그인" width="80px" height="40px" margin="4px">
+            <button onclick="javascript:memberOpen()" width="80px" height="40px" margin="4px">회원가입</button>            
+        </form>
+    </section>
+    <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <section id="myPage">
+        <h1>반갑습니다 <span class="userName"></span> 회원님.</h1>
+        <p>Email : <span id="userEmail"></span></p>
+        <p>Name : <span class="userName"></span></p>
+        <button onclick="javascript:logout()" id="logoutB" type="button" width="80px" height="40px" margin="4px">로그아웃</button>
+    </section>
+</body>
+</html>

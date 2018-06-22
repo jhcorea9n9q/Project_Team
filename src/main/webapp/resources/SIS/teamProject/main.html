@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="lib/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="PC.css">
+<link rel="stylesheet" type="text/css" media="only screen and (max-width: 1000px)" href="TABLET.css">
+<link rel="stylesheet" type="text/css" media="only screen and (max-width: 500px)" href="MOBILE.css">
+	<title> Title </title>
+	<style>
+        #menu ul, li {
+            list-style: none;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        .cf{
+            width: 900px;
+            z-index: 2;
+/*            width: fit-content;*/
+        }
+        
+        .cf > li {
+            background: black;
+            float: left;
+            position: relative;
+        }
+        
+        .cf a {
+            display: block;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: Arial, Helvetica;
+            font-size: 1em;
+        }
+        
+        .cf li:hover {
+            background: #e74c3c;
+        }
+        
+        .cf > li > a {
+            padding: 2.3em 1em;
+        }
+        
+        .submenu{
+            position: absolute;
+            width: 200px;
+/*            left: 50%;*/
+            margin-left: -100px;
+            z-index: 2;
+        }
+        
+        .submenu li{
+            background-color: #34495e;
+            position: relative;
+            overflow: hidden;
+            transition: .2s ease transform;
+            z-index: 2;
+        }
+        
+        .submenu > li > a{
+            padding: 1em 2em;
+        }
+        
+        .submenu > li::after{
+            content: '';
+            position: absolute;
+            top: -125%;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 0 50px rgba(0, 0, 0, .9);
+            z-index: 2;
+        }	
+        
+        .submenu, .submenu il{
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2;
+        }
+        
+        .cf > li:hover .submenu, .cf > li:hover .submenu li{
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 상단 -->
+    <section id="header">
+        <div id="menu">
+        
+            <ul class="cf">
+              <li><a href="main.html" style="background-image: url(%EB%A1%9C%EA%B3%A0.jpg); width: 84.453px; height: 21px; background-size: cover; background-position: center;"></a></li>
+              
+               <li><a href="">서비스 안내</a></li>
+              
+               <li><a href="">요금 안내</a></li>
+              
+               <li>
+               <a href="">제휴 사이트</a>
+                <ul class="submenu">
+                 <li><a href="https://www.rolex.com/" target="_blank">Rolex</a></li>
+                 <li><a href="https://www.blancpain.com/" target="_blank">Blanc Pain</a></li>
+                 <li><a href="https://www.patek.com/en/home" target="_blank">Patek Philippe</a></li>
+                 <li><a href="https://www.harrywinston.com/" target="_blank">Harry Winston</a></li>
+                 <li><a href="https://www.chanel.com/" target="_blank">Chanel</a></li>
+                 <li><a href="https://www.gucci.com/" target="_blank">Gucci</a></li>
+                 <li><a href="https://www.hermes.com/" target="_blank">Hermes</a></li>
+                 <li><a href="https://www.prada.com/" target="_blank">Prada</a></li>
+                </ul>
+              </li>
+              
+               <li><a href="">고객센터</a></li>
+              
+               <li><a href="">마이페이지</a></li>
+              
+               <li><a href="">매물찾기/예약</a></li>
+              
+            </ul>
+        </div>
+        
+        <div>
+            
+        </div>
+    </section>
+    
+    <!-- 중앙 -->
+    <section id="main">
+        <div id="mainframe">
+        </div>
+    </section>
+    
+    <!-- 하단 -->
+    <footer>
+        <div id="qna">
+            
+        </div>
+    </footer>
+    
+</body>
+</html>

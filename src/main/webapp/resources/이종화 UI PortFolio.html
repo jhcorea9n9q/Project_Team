@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Title </title>
+	<link rel='shortcut icon' href='http://gudi.kr/GDJ10/img/icon_goodee.png'>
+	<style>
+        section {
+            width: 800px;
+            height: 5700px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 100px;
+        }
+        header {
+            text-align: center;
+            width: 100%;
+            height: 100px;
+            display: inline-block;
+            float: left;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        #div {
+            width: calc(100% - 4px);
+            display: inline-block;
+            float: left;
+            border: 2px #b4b4b4 dashed;
+        }
+        span {
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            height: 23px;
+            float: left;
+            padding: 10px 0;
+            font-weight: bold;
+            border-bottom: 2px #b4b4b4 dashed;
+            background-color: #e0f5ff;
+        }
+        article {
+            display: inline-block;
+            float: left;
+            margin: 0;
+            padding: 20px;
+            width: calc(100% - 40px);
+        }
+        article div {
+            border-bottom: 2px #b4b4b4 dashed;
+            padding: 10px 0;
+            text-align: center;
+        }
+        article p {
+            text-align: left;
+        }
+        img {
+            border: 8px silver double;
+            border-radius: 10px;
+        }
+        img:hover {
+            animation-name: imgani;
+            animation-duration: 1s;
+            transform: scale(1.3); 
+        }
+        @keyframes imgani {
+            from {
+                transform: scale(1);
+            }
+            to {
+               transform: scale(1.3); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <header><h1>《 UI 구현 Team Project 》</h1></header>
+        <div id="div">
+            <span>HTML, CSS, JS를 활용한 Web Site 구현 Project 개인별 정리 (발표자 : 이종화)</span>
+            <article>
+                <div>
+                    <p>
+                        <b>@ 개발개요</b> : 명품가방/명품시계 렌탈 사이트의 UI 구현 <br>
+                        <b>@ 개발환경</b> : Brackets - HTML, CSS, JS, jQuery <br>
+                        <b>@ 참여인원</b> : 3인 (이종화, 박경진, 소인성) <br>
+                        <b>@ 개인 담당부분</b> : ①고객센터 게시판 ②매물검색/예약 화면
+                    </p>
+                </div>
+                <div>
+                    <p><b>@ 웹사이트 개요</b></p>
+                    <img src="PortFolioIMG/MAIN.PNG" width="68%">
+                    <p>
+                        ① 구성이나 레이아웃은 카셰어링 사이트인 쏘카(socar) 홈페이지를 참조<br>
+                        ② 사이트 테마에 맞게 스타일과 색상을 고급스런 이미지로 디자인<br>
+                        ③ 각 페이지로 이동하는 역할의 헤더 / 페이지 내용이 담긴 중간 섹션 / 하단의 푸터로 3단 구성<br>
+                        ④ jQuery를 활용하여 최대한 싱글페이지 기능 구현<br>
+                    </p>
+                </div>
+                <div>
+                    <p><b>@ 고객센터 화면 설명</b></p>
+                    <img src="PortFolioIMG/QAimg1.PNG" width="68%">
+                    <p>
+                        ① 쏘카 홈페이지의 고객센터를 참조<br>
+                        ② 타이틀, 탭, 제목, 검색창, 게시판(테이블)으로 레이아웃 분리<br>
+                        ③ 탭, 게시판 순서 목록, input 버튼 등에 마우스를 가져갈 경우(hover시), 해당 부분의 색상 변경<br>
+                        ④ jQuery를 활용, 선택한 탭에 따라 index값을 받아 게시판 테이블(display)이 변경되게끔 기능 구현<br>
+                        ⑤ 고객의견 선택 시 '글쓰기'버튼 생성 // 자주 묻는 질문 선택 시 게시판 순서 목록 제거<br>
+                        <br><br>
+                        <b>@ 고객센터 화면의 반응형 변경내용</b>
+                    </p>
+                    <img src="PortFolioIMG/QAimg2.PNG" width="55%">
+                    <p>
+                        <b>⑴ 태블릿</b><br><br>
+                        ① 좌측에 있던 탭 부분을 상단으로 이동<br>
+                        ② 전체적인 마진, 패딩, 사이즈 값 축소<br><br>
+                        <br>
+                    </p>
+                    <img src="PortFolioIMG/QAimg3.PNG" width="33%">
+                    <p>
+                        <b>⑵ 모바일</b><br><br>
+                        ① 전체적인 사이즈를 더욱 줄이고 좌우 마진을 최소화<br>
+                        ② 한 줄에 있던 게시판 제목과 검색창, 그리고 게시판 순서 목록과 글쓰기 버튼을 상하로 분리<br>
+                        ③ 11까지 있던 게시판 순서 목록을 7까지 축소<br>
+                        <br>
+                    </p>
+                </div>
+                <div>
+                    <p><b>@ 매물찾기/예약 화면 설명</b></p>
+                    <img src="PortFolioIMG/RVimg1-1.PNG" width="68%">
+                    <img src="PortFolioIMG/RVimg1-2.PNG" width="68%">
+                    <p>
+                        ① 마찬가지로 쏘카(socar) 홈페이지의 예약화면을 참조<br>
+                        ② 타이틀, 지역선택 네비게이션, 예약 리모콘, 지도, 물품목록 테이블로 레이아웃 분리<br>
+                        ③ jQuery를 활용하여 지역 바로가기에서 해당 지역을 선택 시 구글맵의 내용이 변경됨<br>
+                        ④ 예약 리모콘은 radio/date타입의 input태그와 select태그, button 태그를 활용해 구성<br>
+                        ⑤ 검색시작 button 누를 경우 가방/시계 선택에 따라 하단 물품목록의 내용 변경<br>
+                        ⑥ 동시에 선택한 지역에 따라 구글 맵 내용 변경 (③과 같은 JS함수를 사용)<br>
+                        ⑦ 하단 물품목록 테이블에서는 버튼 부분에 그라데이션과 애니메이션(hover시)을 활용<br>
+                        <br><br>
+                        <b>@ 매물찾기/예약 화면의 반응형 변경내용</b>
+                    </p>
+                    <img src="PortFolioIMG/RVimg2-1.PNG" width="55%">
+                    <img src="PortFolioIMG/RVimg2-2.PNG" width="55%">
+                    <p>
+                        <b>⑴ 태블릿</b><br><br>
+                        ① 공간이 부족해진 네비게이션 부분을 줄바꿈해 width를 100%로 확대<br>
+                        ② 전체적인 사이즈를 줄이고 리모콘 디자인을 단순화<br><br>
+                        <br>
+                    </p>
+                    <img src="PortFolioIMG/RVimg3-1.PNG" width="33%">
+                    <img src="PortFolioIMG/RVimg3-2.PNG" width="33%">
+                    <p>
+                        <b>⑵ 모바일</b><br><br>
+                        ① 타이틀과 바로가기 네비게이션을 없애 구성을 단순화<br>
+                        ② 좌우 마진이나 폰트 사이즈를 줄여 공간을 확보<br>
+                        <br>
+                    </p>
+                </div>
+                <div style="border: none;">
+                    <p>
+                        <b>후기</b><br><br>
+                        처음 시작할 때 너무도 가벼운 마음으로 프로젝트를 계획했고, 큰 계획없이 레이아웃을 잡아 진행한 나머지 도중에 컨셉이 애매해져 갈아엎을 필요가 생겨 고생을 했습니다. 하지만 결과적으로 그 선택이 더 사이트의 컨셉에 맞는 디자인이 되어 만족스럽습니다.<br>
+                        DB와의 연결 없이 하드코딩으로 진행하여 UI 이외의 면이 부족한 것은 조금 아쉽지만, 이번 프로젝트 덕분에 HTML과 CSS을 학습하는데 많은 도움이 되었습니다. 기회가 된다면 이번 경험을 살리면서 JS까지도 심도있게 활용하여 더 완성도 있는 웹사이트 구현에 도전해보고자 합니다.
+                        <br>
+                    </p>
+                </div>
+            </article>
+        </div>
+    </section>
+</body>
+</html>

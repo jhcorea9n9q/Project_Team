@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="jh1.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-width: 1200px)" href="jh2.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-width: 600px)" href="jh3.css">
+    <script src="lib/jquery.min.js"></script>
+    <script src="QandR.js"></script>
+    <script>
+   		$(document).ready(function(){
+   			setTimeout(function(){qna();}, 300);
+   			console.log("QnA");
+        });
+    </script>
+	<title> QnA </title>
+</head>
+
+<body>
+    <div id="qa">
+        <div id="qa_title">
+            <h2>고객센터</h2>
+            <p>고객 여러분의 문제점을 해결해드립니다.</p>
+        </div>
+        <section id="qa_main">
+            <ul id="qa_tap">
+                <li class="qa_taplist">공지사항</li>
+                <li id="qa_taplist2" class="qa_taplist">자주묻는<br>질문</li>
+                <li class="qa_taplist">고객의견</li>
+            </ul>
+            <div id="qa_board">
+                <div id="qa_btitle">
+                    <h3>공지사항</h3>
+                </div>
+                <form id="qa_bsearch">
+                    <input type="text" name="bsinput" id="qa_bsinput">
+                    <input type="submit" id="qa_bsbutton" value="검색" disabled>
+                </form>
+                <ul id="qa_ta2tap">
+                    <li>가입문의</li>
+                    <li>예약문의</li>
+                    <li>결제문의</li>
+                    <li>쿠폰사용</li>
+                    <li>탈퇴문의</li>
+                </ul>
+                <table id="qa_table1">
+                  <tr>
+                    <th>번호</th>
+                    <th>제목</th> 
+                    <th>작성일자</th>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td class="qa_btext"><a href="#">(new)[공지] HTML/CSS 변경사항 안내</a></td>
+                    <td>2018-05-28</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td class="qa_btext"><a href="#">[이벤트] Java배우고 할인기회 자바보자!(4/15~5/31)</a></td>
+                    <td>2018-04-15</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td class="qa_btext"><a href="#">[공지] 대여 방식 변경 안내(11/11~)</a></td>
+                    <td>2017-10-10</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td class="qa_btext"><a href="#">[이벤트] #신상할인이벤트! 지금당장 확인(종료)</a></td>
+                    <td>2017-06-22</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td class="qa_btext"><a href="#">[이벤트] 화이트데이는 가방과 함께!(종료)</a></td>
+                    <td>2017-03-14</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td class="qa_btext"><a href="#">[공지] 신년 공휴일 서비스 안내</a></td>
+                    <td>2017-01-03</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td class="qa_btext"><a href="#">[이벤트] 겨울맞이 생일선물 이벤트(종료)</a></td>
+                    <td>2016-12-17</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td class="qa_btext"><a href="#">[이벤트] 시계차면 포인트도 차요!(종료)</a></td>
+                    <td>2016-08-02</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td class="qa_btext"><a href="#">[공지] 개인정보 처리방침 변경 안내(5/1~)</a></td>
+                    <td>2016-04-17</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td class="qa_btext"><a href="#">[공지] 필독바람! 개인정보 열람에 관한 안내</a></td>
+                    <td>2016-03-14</td>
+                  </tr>
+                </table>
+                <table id="qa_table2">
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">중국제, 짝퉁상품도 등록이 가능한가요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">제가 예약한 동안 타인이 사용/착용해도 되나요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">보험 기준이 어떻게 되나요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">체크카드도 사용이 가능한가요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">외국인도 이용이 가능한가요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">이곳을 이용하면 토익점수가 오르나요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">휴대전화 본인인증이 되지 않습니다.</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">본인명의의 핸드폰으로만 가입할 수 있나요?</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">상품 파손/손해시에 어떻게 해야 하나요??</a></td>
+                  </tr>
+                  <tr>
+                    <td><b>Q</b></td>
+                    <td class="qa_btext"><a href="#">배고파요.</a></td>
+                  </tr>
+                </table>
+                <table id="qa_table3">
+                </table>
+                <ul id="qa_bno">
+                	<li class="qa_bno_init">◀</li>
+                    <li class="qa_bno_init">1</li>
+                    <li class="qa_bno_init">2</li>
+                    <li class="qa_bno_init">3</li>
+                    <li class="qa_bno_init">4</li>
+                    <li class="qa_bno_init">5</li>
+                    <li class="qa_bno_init">6</li>
+                    <li class="qa_bno_init">7</li>
+                    <li class="qa_bno_none">8</li>
+                    <li class="qa_bno_none">9</li>
+                    <li class="qa_bno_none">10</li>
+                    <li class="qa_bno_none">11</li>
+                    <li class="qa_bno_init">▶</li>
+                    <div id="qa_write">글쓰기</div>
+                </ul>
+            </div>
+        </section>
+        <form id="qa_inputplease">
+		    <input id="qa_ip1" class="qa_textinput" type="text" placeholder="글 제목을 입력해주세요." maxlength="20"><br>
+		    <input id="qa_ip2" class="qa_textinput" type="text" placeholder="글 내용을 입력해주세요." maxlength="2000"><br>
+		    <input class="qa_ipNbutton" type="submit" value="작성 완료!">
+		    <button id="qa_rollback" type="button">돌아가기</button>
+		</form>
+		<form id="qa_checkdetails">
+		</form>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+*{ margin:0;padding:0; }
+
+ul,li{
+        list-style:none;
+}
+
+#slide{
+        float: left;
+        width: 544px;
+        height: 530px;
+        position: relative;
+        overflow: hidden;
+}
+
+#slide ul{
+        width:400%;
+        height:100%;
+        transition:1s;
+}
+
+#slide ul:after{
+        content:"";
+        display:block;
+        clear:both;
+}
+
+#slide li{
+        float:left;
+        width:25%;
+        height:100%;
+}
+
+#slide li:nth-child(1){
+        background-image: url(BLANCPAIN%20-%20FIFTY%20FATHOMS%20FLYBACK%20CHRONOGRAPH.jpg);
+        background-size: cover;
+        background-position: center;
+}
+
+#slide li:nth-child(2){
+        background-image: url(HARRY%20WINSTON%20-%20200-MMTZ39PL-KC.jpg);
+        background-size: cover;
+        background-position: center;
+}
+
+#slide li:nth-child(3){
+        background-image: url(PATEK%20PHILIPPE%20-%20MOON%20PHASE%20AUTOMATIC%20DUAL%20TIME.jpg);
+        background-size: cover;
+        background-position: center;
+}
+
+#slide li:nth-child(4){
+        background-image: url(Rolex%20Oyster%20Perpetual%20-%20Yacht%20Master%20RG%20soldier%201000.jpg);
+        background-size: cover;
+        background-position: center;
+}
+
+#slide input{
+        display:none;
+}
+
+#slide label{
+        display:inline-block;
+        vertical-align:middle;
+        width:10px;
+        height:10px;
+        border:2px solid #666;
+        background:#fff;
+        transition:0.7s;
+        border-radius:50%;
+        cursor:pointer;
+}
+
+#slide .pos{
+        text-align:center;
+        position:absolute;
+        bottom:10px;
+        left:0;
+        width:100%;
+        text-align:center;
+}
+
+#pos1:checked~ul{
+        margin-left:0%;
+}
+
+#pos2:checked~ul{
+        margin-left:-100%;
+}
+
+#pos3:checked~ul{
+        margin-left:-200%;
+}
+
+#pos4:checked~ul{
+        margin-left:-300%;
+}
+
+#pos1:checked~.pos>label:nth-child(1){
+        background:#666;
+}
+
+#pos2:checked~.pos>label:nth-child(2){
+        background:#666;
+}
+
+#pos3:checked~.pos>label:nth-child(3){
+        background:#666;
+}
+
+#pos4:checked~.pos>label:nth-child(4){
+        background:#666;
+}

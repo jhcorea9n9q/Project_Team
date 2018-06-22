@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Title </title>
+	<script src="lib/jquery.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script>
+         function popClose(){ self.close(); }
+         function DaumPostCode() {
+        	 new daum.Postcode({
+                 oncomplete: function(data) {
+                     // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                     // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                     // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                     var fullAddr = ''; // 최종 주소 변수
+                     var extraAddr = ''; // 조합형 주소 변수
+
+                     // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                     if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                         fullAddr = data.roadAddress;
+
+                     } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                         fullAddr = data.jibunAddress;
+                     }
+
+                     // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                     if(data.userSelectedType === 'R'){
+                         //법정동명이 있을 경우 추가한다.
+                         if(data.bname !== ''){
+                             extraAddr += data.bname;
+                         }
+                         // 건물명이 있을 경우 추가한다.
+                         if(data.buildingName !== ''){
+                             extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                         }
+                         // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                         fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                     }
+
+                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                     document.getElementById('postCode').value = data.zonecode; //5자리 새우편번호 사용
+                     document.getElementById('address').value = fullAddr;
+
+                     // 커서를 상세주소 필드로 이동한다.
+                     document.getElementById('address2').focus();
+                 }
+             }).open();
+         }
+         $(document).ready(function(){
+        	 $("form").submit(function(e){
+ 				e.preventDefault();
+ 				var userName = $("form input").eq(0).val();
+ 				var userSex = $("#userSex_check input:checked").val();
+ 				var userEmail = $("form input").eq(3).val() + "@" + $("select").val();
+ 				var userAdr = $("form input").eq(8).val() + ", " + $("form input").eq(9).val();
+ 				var userPassword = $("form input").eq(4).val();
+ 				var userPassword_c = $("form input").eq(5).val();
+ 				$.ajax({
+					type: "post",
+					url:"/ljh/emailCheck",
+					data : {"userEmail":userEmail}
+				}).done(function(data){
+					var d = JSON.parse(data);
+					if(d.emailCheck == "NO") {
+						alert(userEmail + ": 이 이메일은 이미 등록되어 있습니다. 다시 입력해 주십시오.");
+						document.getElementById('userEmail').focus();
+					}else if (d.emailCheck == "OK") {
+						if(userPassword != userPassword_c) {
+		 					alert("비밀번호 확인이 잘못 입력되었습니다!");
+		 					document.getElementById('pwcheck').focus();
+		 				}else{
+		 					$.ajax({
+		 	 					type: "post",
+		 	 					url:"/ljh/newUser",
+		 	 					data : {
+		 	 						"userName":userName,
+		 	 						"userEmail":userEmail,
+		 	 						"userPassword":userPassword,
+		 							"userSex":userSex,
+		 							"userAdr":userAdr
+		 	 					}
+		 	 				}).done(function(data){
+		 	 					var d = JSON.parse(data);
+		 	 					if(d.newUser == "NO") {
+		 	 						alert("회원가입에 실패했습니다. 다시 시도해주십시오");
+		 	 					}else if (d.newUser == "OK") {
+		 	 						alert("가입 절차가 완료되었습니다. 환영합니다 " + userName + " 님.");
+		 	 						self.close();
+		 	 					}
+		 	 				});
+		 				}
+					}
+				});
+        	 });
+         });
+	</script>
+</head>
+
+<body>
+<form>
+	<table width="700">
+	    <tr>
+	        <th>회원가입
+	            
+	        </th>
+	    </tr>
+	    
+	    <tr>
+	        <td>
+	            <table width="100%" bgcolor="black" cellpadding="5" cellspacing="1" border="0">
+	                <tr>
+	                    <td width="20%" bgcolor="#cacaca">
+	                        &nbsp;이름
+	                    </td>
+	                    <td id="userSex_check" width="*" bgcolor="white">
+	                        <input type="text" name="userName" value="" placeholder="이름" size="15" tabindex="2" maxlength="50" required="required">
+	                        남<input type="radio" value="M" name="userSex" checked="checked"> 여<input type="radio" value="W" name="userSex">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td width="20%" bgcolor="#cacaca">
+	                        &nbsp;이메일
+	                    </td>
+	                    <td width="*" bgcolor="white">
+	                        <input id="userEmail" name="userEmail_1" type="text" size="12" maxlength="50" placeholder="아이디" tabindex="15" required="required">
+	                        <select name="userEmail_2">
+	                        	<option value="gudi.co.kr" selected="selected">gudi.co.kr</option>
+	                            <option value="gmail.com">gmail.com </option>
+	                            <option value="naver.com">naver.com</option>
+	                            <option value="yahoo.co.jp">yahoo.co.jp</option>
+	                            <option value="hanmail.com">hanmail.com</option>
+	                        </select>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td width="20%" bgcolor="#cacaca">
+	                        &nbsp;비밀번호
+	                    </td>
+	                    <td width="*" bgcolor="white">
+	                        <input type="password" name="userPassword" value="" maxlength="15" size="20" placeholder="비밀번호" tabindex="7" required="required"> * 영문과 숫자 조합으로 4자리 이상, 15자리 이하
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td width="20%" bgcolor="#cacaca">
+	                        &nbsp;비밀번호 확인
+	                    </td>
+	                    <td width="*" bgcolor="white">
+	                        <input type="password" id="pwcheck" name="userPassword_check" value="" maxlength="15" size="20" placeholder="비밀번호 확인" tabindex="8" required="required">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td width="20%" bgcolor="#cacaca">
+	                        &nbsp;주소
+	                    </td>
+	                    <td width="*" bgcolor="white">
+	                         <input id="postCode" type="text" size="6" maxlength="5" placeholder="우편번호" required="required">
+	                         <input type="button" onclick="DaumPostCode()" value="우편번호 검색" /><br/>
+	                         <input id="address" name="userAdr_1" type="text" size="20" maxlength="50" placeholder="주소" required="required">
+	                         <input id="address2" name="userAdr_2" type="text" size="35" maxlength="50" placeholder="상세 주소" required="required">
+	                    </td>
+	                </tr>
+	            </table>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td align="center" style="padding: 10px;">
+	        <input type="submit" value="회원가입" id="new_user">
+	        <button type="button" onclick="javascript:popClose()">닫기</button>
+	        </td>
+	    </tr>
+	</table>
+</form>
+</body>
+</html>

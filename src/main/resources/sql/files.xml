@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="files">
+	<insert id="filesInsert" parameterType="HashMap">
+		insert into files
+			(boardNo, userNo, fileName, fileURL, regDate) 
+		values 
+			(#{boardNo},#{userNo},#{fileName},#{fileURL},DATE_FORMAT(NOW(),'%Y%m%d'));
+	</insert>
+</mapper>

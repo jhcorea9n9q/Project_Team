@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- DB와 연결하기 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:mysql://gudi.kr:3306/ljh" />
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+		<property name="username" value="ljh" />
+		<property name="password" value="ljh" />
+	</bean>
+
+	
+	<!-- MyBatis로 SQL 쿼리 받아오기. config파일) -->
+	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="mapperLocations" value="classpath:/sql/*.xml" />
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	
+	<!-- 세션 받아오기 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="factoryBean" />
+	</bean>
+		
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<insert id="boardInsert" parameterType="HashMap">
+		insert into board
+			(userNo, boardTitle, boardContents, boardClass, regDate) 
+		values 
+			(#{userNo},#{boardTitle},#{boardContents},#{boardClass},DATE_FORMAT(NOW(),'%Y%m%d'))
+	</insert>
+	<select id="board_Count" resultType="integer">
+		select count(*) as AllCount from board where board.boardClass = '고객의견';
+	</select>
+	
+	<select id="board_CommentList" parameterType="HashMap" resultType="HashMap">
+		select * from board
+			where boardClass = '고객의견'
+		limit #{limitNo}, #{limitNo2}
+	</select>
+	
+	<select id="boardDetail" parameterType="HashMap" resultType="HashMap">
+		select boardTitle,
+		       boardContents,
+		       (select users.userName
+		          from users
+		         where users.userNo = board.userNo)
+		       as userNo
+			from board
+			where boardNo = #{boardNo} and delYn = 'N' and boardClass = '고객의견'
+	</select>
+</mapper>

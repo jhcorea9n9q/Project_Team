@@ -304,6 +304,7 @@ function admitcheckfordetail(html) {
 }
 
 function reaservation() {
+	newTable("Y", "#rsv_list_table1");
     var areavalue;
             $("#rsv_area ul li").off().on("click", function(){
                 areavalue = $(this).index();
@@ -314,9 +315,11 @@ function reaservation() {
                 if (tableselect == "bag") {
                     $("#rsv_list_table1").css("display", "table");
                     $("#rsv_list_table2").css("display", "none");
+                    newTable("Y", "#rsv_list_table1");
                 }else if (tableselect == "watch") {
                     $("#rsv_list_table2").css("display", "table");
                     $("#rsv_list_table1").css("display", "none");
+                    newTable("N", "#rsv_list_table2");
                 }
                 areavalue = $("#rsv_menu3 select").val();
                 if(areavalue != -1){
@@ -330,4 +333,26 @@ function reaservation() {
                 $("#rsv_map").empty();
                 $("#rsv_map").html(HTML);
             }
+}
+
+function newTable(goodsClass, tableid){
+	$.ajax({
+		type:"post",
+		url:"/ljh/fileList",
+		data:{"goodsClass" : goodsClass}
+	}).done(function(data){
+		var d = JSON.parse(data).list;
+		$(tableid).empty();
+		var html_f1 = "<tr><th>대여존</th><th>대여물품</th><th>대여요금</th><th></th></tr>";
+		for(var f=0; f<d.length; f++) {
+			var fList = d[f];
+			var html_f = "<tr>";
+			html_f += "<td class='rsv_list_zone'>" + fList.rentZone + "</td>";
+			html_f += "<td><div style='background-image: url(" + fList.fileURL +")' class='rsv_list_img'></div><br>" + fList.goods + "</td>";
+			html_f += "<td>" + fList.cost + "</td>";
+			html_f += "<td><button type='submit'>예약</button></td></tr>";
+			$(tableid).prepend(html_f); 
+		}
+		$(tableid).prepend(html_f1);
+	});
 }

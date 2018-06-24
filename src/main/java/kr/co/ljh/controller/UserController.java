@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/userOut")
-	public ModelAndView userOut(HttpServletRequest req, HttpSession session) {
+	public ModelAndView userOut(HttpSession session) {
 		return HttpUtil.makeJsonView(usif.userOut(session));
 	}
 }

@@ -1,5 +1,5 @@
 function tryLogin(){
-	$("form").submit(function(e){
+	$("#login").submit(function(e){
 		e.preventDefault();
 		var userEmail = $("form #id").val();
 		var userPassword = $("form #pw").val();
@@ -86,13 +86,50 @@ function returnOpen() {
     location.href = "main.html";
 }
 
-function flieUpload() {
-	console.log("업로드하자");
-	var screenW = screen.availWidth;
-    var screenH = screen.availHeight;
-    var posT=(screenH-375) / 2;
-    var posL=(screenW-784) / 2;
-    var Option = "width=715, height=410, top="+posT+",left="+posL+", resizable=no, scrollbars=no, status=no;";
-		
-	window.open("fileUpload.html", "", Option);
+function fileUpload() {
+	$("#myPage form").show();
+	$.ajax({
+		type: "post",
+		url: "/ljh/userCheck"
+	}).done(function(data){
+		var d = JSON.parse(data);
+		var list = d.list;
+		if(list != null) {
+			var usNo = list.userNo;
+		}
+		$("#myPage form").submit(function(e){
+			e.preventDefault();
+			var v0 = usNo;
+			var v1 = $("#myPage form select").val();
+			var v2 = $("#myPage form input:checked").val();
+			if (v2=="bag"){
+				v2 = "Y";
+			}else if(v2=="watch"){
+				v2 = "N";
+			}
+			var v3 = $("#myPage form input").eq(2).val();
+			var v4 = $("#myPage form input").eq(3).val();
+			var v5 = $("#myPage form input").eq(4).val();
+			$.ajax({
+				type:"post",
+				url: "/ljh/fileUpload",
+				data:{"userNo":v0,
+					"rentZone":v1,
+					"goodsClass":v2,
+					"goods":v3,
+					"fileName":v3,
+					"cost":v4,
+					"fileURL":v5}
+			}).done(function(data){
+				var d = JSON.parse(data);
+				if(d.upload == "OK") {
+					alert("매물 등록 성공.");
+					location.href="/ljh/page/main.html";
+				}else {
+					alert("매물 등록 실패.");
+				}
+			});
+		});
+	
+	});
 }

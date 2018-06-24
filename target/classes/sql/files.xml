@@ -15,4 +15,21 @@
 		values 
 			(#{userNo},#{rentZone},#{goodsClass},#{goods},#{cost});
 	</insert>
+	<select id="fileboardCheck" parameterType="HashMap" resultType="HashMap">
+		select boardNo from boardFiles
+		where userNo = #{userNo}
+		group by boardNo desc
+		limit 1
+	</select>
+	<select id="filelist" parameterType="HashMap" resultType="HashMap">
+		select rentZone,
+				(select files.fileURL
+					from files
+				  where files.boardNo = boardFiles.boardNo
+				) as fileURL,
+				goods,
+				cost
+		from boardFiles
+		where delYn = 'N' and reserv = 'N' and goodsClass = #{goodsClass};
+	</select>
 </mapper>

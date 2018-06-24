@@ -37,7 +37,11 @@ public class BoardService implements BoardServiceInterFace {
 		int limitNo = (AllCount - (CountMinus * PageNumber));
 		// 최신 게시글 10개를 위한 리미트 걸기
 		if (limitNo < 0) {
+			CountMinus = CountMinus + limitNo;
 			limitNo = 0;
+			if(CountMinus < 1) {
+				CountMinus = 0;
+			}
 		}
 		
 		logger.info("현재 게시판 페이지 번호 : " + PageNumber + 
@@ -93,8 +97,24 @@ public class BoardService implements BoardServiceInterFace {
 		map.put("sql", "selectOne");
 		map.put("sqlType", "board.boardDetail");
 		HashMap<String, Object> resultMap = (HashMap<String, Object>) dif.call(map);
+		logger.info("클릭한 글의 정보 내용 : " + resultMap);
 		
 		return resultMap;
+	}
+
+
+	@Override
+	public HashMap<String, Object> boardUpdate(HttpServletRequest req, String sqltype) {
+		HashMap<String, Object> map = HttpUtil.getParamMap(req);
+		map.put("sql", "update");
+		map.put("sqlType", sqltype);
+		logger.info("담긴 데이터와 sql문 확인. : " + map);
+		
+		int status = (int) dif.call(map);
+		map.put("status", status);
+		logger.info("삭제 성공 여부 확인 (1이 성공) : " + status); 
+		
+		return map;
 	}
 	
 }

@@ -53,6 +53,24 @@ function logout(){
 	});
 }
 
+function userOut(){
+	var really = confirm("정말로 취소하시겠습니까?");
+	if(really == true){
+		$.ajax({
+			type: "post",
+			url: "/ljh/userOut"
+		}).done(function(data) {
+			var d = JSON.parse(data);
+			if(d.status == 1) {
+				alert("탈퇴 처리가 완료되었습니다.");
+				location.href="main.html";
+			}
+		});
+	} else {
+		alert("앞으로도 저희 사이트를 사랑해 주십시오.");
+	}
+}
+
 function memberOpen(){
             var Url = "member.html";	//팝업창에 출력될 페이지 URL
             var screenW = screen.availWidth;

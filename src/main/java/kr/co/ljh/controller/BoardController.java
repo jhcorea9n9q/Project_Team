@@ -32,4 +32,18 @@ public class BoardController {
 		return HttpUtil.makeJsonView(bsif.QnAdetail(req, ses));
 	}
 	
+	@RequestMapping("/boardUpdate")
+	public ModelAndView boardUpdate(HttpServletRequest req) {
+		return HttpUtil.makeJsonView(bsif.boardUpdate(req, "board.boardUp"));
+	}
+	
+	@RequestMapping("/AdminCheck")
+	public ModelAndView AdminCheck(HttpServletRequest req) {
+		return HttpUtil.makeJsonView(bsif.boardUpdate(req, "board.boardAdminCheck"));
+	}
+	
+	@RequestMapping("/boardDelete")
+	public ModelAndView boardDelete(HttpServletRequest req) {
+		return HttpUtil.makeJsonView(bsif.boardUpdate(req, "board.boardDelete"));
+	}
 }

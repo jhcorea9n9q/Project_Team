@@ -12,4 +12,7 @@ public interface BoardServiceInterFace {
 	public HashMap<String, Object> QnAinsert(HttpServletRequest req, HttpSession session);
 	
 	public HashMap<String, Object> QnAdetail(HttpServletRequest req, HttpSession session);
+	
+	public HashMap<String, Object> boardUpdate(HttpServletRequest req, String sqltype);
+	
 }

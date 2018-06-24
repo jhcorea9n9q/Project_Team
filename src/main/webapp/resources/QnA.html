@@ -12,7 +12,6 @@
     <script>
    		$(document).ready(function(){
    			setTimeout(function(){qna();}, 300);
-   			console.log("QnA");
         });
     </script>
 	<title> QnA </title>
@@ -171,6 +170,15 @@
 		    <button id="qa_rollback" type="button">돌아가기</button>
 		</form>
 		<form id="qa_checkdetails">
+			<h3></h3><input class="qa_detailinput" text="text" placeholder="바꿀 제목을 입력해 주세요." maxlength="20"><br>
+			<h5></h5><br><input class="qa_detailinput" text="text" placeholder="바꿀 내용을 입력해 주세요." maxlength="2000"><br>
+			<p></p><br><br><br>
+			<input class="qa_detailinput" type="submit" value="작성 완료!"><br><br>
+			<button type='button' id='qa_rollback2'>게시판으로 돌아가기</button>
+			<button type='button' id='qa_updatebutton'>글 수정하기</button>
+			<button type='button' id='qa_deletebutton'>글 삭제하기</button>
+			<button type='button' id='qa_rollback3'>글 수정 취소</button>
+			<button type='button' id='qa_updateCheck'>글 확인 체크</button>
 		</form>
     </div>
 

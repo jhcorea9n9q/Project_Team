@@ -259,6 +259,18 @@ html, body {
 	position: relative;
 	left: 100px;
 	bottom: 700px;
+	padding: 50px;
+}
+.qa_detailinput{
+	display: none;
+}
+
+#qa_updateCheck{
+	display: none;
+}
+
+#qa_rollback3 {
+	display: none;
 }
 
  /*Reservation.html 용*/

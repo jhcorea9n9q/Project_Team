@@ -13,6 +13,8 @@ public interface UserServiceInterFace {
 	
 	public HashMap<String, Object> login(HttpServletRequest req, HttpSession session);
 	
-	public  HashMap<String, Object> userCheck(HttpSession session);
+	public HashMap<String, Object> userCheck(HttpSession session);
+	
+	public HashMap<String, Object> userOut(HttpSession session);
 	
 }

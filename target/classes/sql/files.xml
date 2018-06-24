@@ -9,4 +9,10 @@
 		values 
 			(#{boardNo},#{userNo},#{fileName},#{fileURL},DATE_FORMAT(NOW(),'%Y%m%d'));
 	</insert>
+	<insert id="fileboardInsert" parameterType="HashMap">
+		insert into boardFiles
+			(userNo, rentZone, goodsClass, goods, cost) 
+		values 
+			(#{userNo},#{rentZone},#{goodsClass},#{goods},#{cost});
+	</insert>
 </mapper>

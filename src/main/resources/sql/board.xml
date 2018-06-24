@@ -10,18 +10,19 @@
 			(#{userNo},#{boardTitle},#{boardContents},#{boardClass},DATE_FORMAT(NOW(),'%Y%m%d'))
 	</insert>
 	<select id="board_Count" resultType="integer">
-		select count(*) as AllCount from board where board.boardClass = '고객의견';
+		select count(*) as AllCount from board where board.boardClass = '고객의견' and delYn = 'N'
 	</select>
 	
 	<select id="board_CommentList" parameterType="HashMap" resultType="HashMap">
 		select * from board
-			where boardClass = '고객의견'
+			where boardClass = '고객의견' and delYn = 'N'
 		limit #{limitNo}, #{limitNo2}
 	</select>
 	
 	<select id="boardDetail" parameterType="HashMap" resultType="HashMap">
 		select boardTitle,
 		       boardContents,
+		       comYn,
 		       (select users.userName
 		          from users
 		         where users.userNo = board.userNo)
@@ -29,4 +30,23 @@
 			from board
 			where boardNo = #{boardNo} and delYn = 'N' and boardClass = '고객의견'
 	</select>
+	
+	<update id="boardUp" parameterType="HashMap">
+		update board
+		  set boardTitle = #{boardTitle},
+		  	  boardContents = #{boardContents}
+		  where boardNo = #{boardNo}
+	</update>
+	
+	<update id="boardAdminCheck" parameterType="HashMap">
+		update board
+		   set comYn = 'Y'
+		 where boardNo = #{boardNo}
+	</update>
+	
+	<update id="boardDelete" parameterType="HashMap">
+		update board
+		  set delYn = 'Y'
+		where boardNo = #{boardNo}
+	</update>
 </mapper>

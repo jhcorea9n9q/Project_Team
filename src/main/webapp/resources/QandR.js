@@ -1,5 +1,6 @@
 function qna() {
 	qnalist(1);
+	admitcheck();
 	var i = 0;
     $("#qa_tap li").off().on("click", function(){
                 i = $(this).index() + 1;
@@ -12,13 +13,14 @@ function qna() {
                     $("#qa_bno").css("display", "inline-block");
                     $("#qa_write").css("display", "none");
                     $("#qa_ta2tap").css("display", "none");
+                    admitcheck();
                 } else if (i == 2) {
                     $("#qa_bno").css("display", "none");
                     $("#qa_ta2tap").css("display", "inline-block");
                 } else if (i == 3) {
                     $("#qa_bno").css("display", "inline-block");
                     $("#qa_write").css("display", "block");
-                    $("#qa_ta2tap").css("display", "none");
+                    $("#qa_ta2tap").css("display", "none");                    
                 }
             });
     $("#qa_bno li").off().on("click", function(){
@@ -46,8 +48,9 @@ function qna() {
     		}
     	}
     });
-    qnainsert();
+    
     QnAdetail();
+    qnainsert();
 }
 
 function qnalist(PageNumber) {
@@ -134,30 +137,170 @@ function qnainsert(){
     });
 }
 
-function QnAdetail(){
+function QnAdetail(){ // 게시물 확인.
 	var Qu;
 	var query = window.location.href.slice(window.location.href.indexOf('?') + 1);
 	if(query!="http://localhost:8080/ljh/page/main.html"){
 		Qu = query.split('=');
+		var bNo = Qu[1];
 		$.ajax({
 			type:"post",
     		url: "/ljh/QnAdetail",
-    		data: {"boardNo":Qu[1]}
+    		data: {"boardNo":bNo}
 		}).done(function(data){
 			var d = JSON.parse(data);
-			$("#qa_main").empty();
-			$("#qa_checkdetails").css("display", "inline-block");
-			var details = "";
-				details += "<h3>" + d.boardTitle + "</h3>";
-				details += "<p> 작성자:"+ d.userNo + "</p><br>";
-				details += "<p>" + d.boardContents + "</p><br><br><br>";
-				details += "<button type='button' id='qa_rollback2'>돌아가기</button>";
-			$("#qa_checkdetails").html(details);
-			$("#qa_rollback2").off().on("click",function(){
-		    	location.href="/ljh/page/main.html";
-		    });
+			if(d != null) {
+				$("#qa_main").empty();
+				$("#qa_checkdetails").css("display", "inline-block");
+				$("#qa_checkdetails h3").text(d.boardTitle);
+				$("#qa_checkdetails h5").text("작성자 이름 : " + d.userNo);
+				$("#qa_checkdetails p").text(d.boardContents);
+
+				$("#qa_rollback2").off().on("click",function(){
+			    	location.href="/ljh/page/main.html";
+			    });
+				
+				$.ajax({ // 세션 체크.
+					type: "post",
+					url: "/ljh/userCheck"
+				}).done(function(data){
+					var uc = JSON.parse(data);
+					var list = uc.list;
+					if(list != null) {
+						if(list.userName != "관리자") { // 게시물 작성자와 현재 유저가 일치하지 않을 때.
+							if(list.userName != d.userNo) {
+								$("#qa_updatebutton").hide();
+								$("#qa_deletebutton").hide();
+							}
+						}else { // 관리자일 때/
+							if(d.comYn=="N") {
+								$("#qa_updateCheck").show();
+							}
+						}
+					} else { // 로그인된 유저가 없을 때.
+						$("#qa_updatebutton").hide(); 
+						$("#qa_deletebutton").hide();
+					}
+				});
+				
+				$("#qa_updateCheck").off().on("click",function(){ // 글 확인 버튼 클릭시
+					var admincheck = confirm("게시글을 확인하셨나요?");
+					if(admincheck == true) {
+						$.ajax({
+							type:"post",
+							url:"/ljh/AdminCheck",
+							data:{"boardNo" : bNo}
+						}).done(function(data){
+							var d = JSON.parse(data);
+							if(d.status == 1) {
+								alert("글 확인이 완료되었습니다.");
+								location.href="/ljh/page/main.html";
+							}else {
+								alert("제대로 확인되지 않았습니다.");
+							}
+						});
+					}
+				});
+				
+				$("#qa_updatebutton").off().on("click",function(){ // 업데이트 버튼 클릭시
+					$("#qa_checkdetails h3").hide();
+					$("#qa_checkdetails h5").hide();
+					$("#qa_checkdetails p").hide();
+					$("#qa_updatebutton").hide();
+					$(".qa_detailinput").show();
+					$("#qa_rollback3").show();
+					$("#qa_checkdetails input").eq(0).val(d.boardTitle);
+			    	$("#qa_checkdetails input").eq(1).val(d.boardContents);
+			    });
+				
+				$("#qa_checkdetails").submit(function(e){ // 수정하기 시도했을 때.
+			    	e.preventDefault();
+			    	var uV1 = $("#qa_checkdetails input").eq(0).val();
+			    	var uV2 = $("#qa_checkdetails input").eq(1).val();
+			    	$.ajax({
+						type:"post",
+						url:"/ljh/boardUpdate",
+						data:{"boardNo" : bNo, "boardTitle":uV1,"boardContents":uV2}
+					}).done(function(data){
+						var Ud = JSON.parse(data);
+						if(Ud.status == 1) {
+							alert("작성글 " + d.boardTitle + " 의 수정이 완료되었습니다.");
+							location.href="/ljh/page/main.html?boardNo=" + bNo;
+						}else {
+							alert("해당 글의 내용이 제대로 수정되지 않았습니다.");
+						}
+					});
+				});
+				
+				$("#qa_deletebutton").off().on("click", function(){ // 삭제버튼 클릭시
+					var reallyDel = confirm("정말로 게시물을 삭제합니까?");
+					if(reallyDel == true) {
+						$.ajax({
+							type:"post",
+							url:"/ljh/boardDelete",
+							data:{"boardNo" : bNo}
+						}).done(function(data){
+							var d = JSON.parse(data);
+							if(d.status == 1) {
+								alert("글 삭제가 완료되었습니다.");
+								location.href="/ljh/page/main.html";
+							}else {
+								alert("이런! 해당 글의 삭제를 실패했습니다.");
+							}
+						});
+					}
+				});
+				
+				$("#qa_rollback3").off().on("click",function(){
+					var reallyNoUp = confirm("수정을 취소합니까?");
+					if(reallyNoUp == true) {
+						$("#qa_checkdetails h3").show();
+						$("#qa_checkdetails h5").show();
+						$("#qa_checkdetails p").show();
+						$("#qa_updatebutton").show();
+						$(".qa_detailinput").hide();
+						$("#qa_rollback3").hide();
+					}
+				});
+				
+			} else { // 쿼리스트링 변경으로 못된 장난을 칠때
+				alert("잘못된 접근입니다.");
+				location.href="/ljh/page/main.html";
+			}
+
 		});
 	}
+}
+
+function admitcheck() {
+	$.ajax({
+		type: "post",
+		url: "/ljh/userCheck"
+	}).done(function(data){
+		var d = JSON.parse(data);
+		var list = d.list;
+		if(list != null) {
+			if(list.userName == "관리자"){
+				console.log("환영합니다 관리자님.");
+				$("#qa_write").css("display", "block");
+			}
+		}
+	});
+}
+
+function admitcheckfordetail(html) {
+	$.ajax({
+		type: "post",
+		url: "/ljh/userCheck"
+	}).done(function(data){
+		var d = JSON.parse(data);
+		var list = d.list;
+		if(list != null) {
+			if(list.bo == "관리자"){
+				$("qa_updateCheck").show;
+			}
+		}
+	});
 }
 
 function reaservation() {

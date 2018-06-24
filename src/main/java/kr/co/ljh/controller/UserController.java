@@ -44,4 +44,8 @@ public class UserController {
 		return "redirect:/page/main.html";
 	}
 	
+	@RequestMapping("/userOut")
+	public ModelAndView userOut(HttpServletRequest req, HttpSession session) {
+		return HttpUtil.makeJsonView(usif.userOut(session));
+	}
 }

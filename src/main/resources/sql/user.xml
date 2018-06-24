@@ -5,19 +5,20 @@
 <mapper namespace="user">
 	<select id="emailCheck" parameterType="HashMap" resultType="HashMap">
 		select userEmail from users
-		where userEmail = #{userEmail}
+		where userEmail = #{userEmail} and delYn = 'N'
 		limit 1
 	</select>
 	<insert id="userInsert" parameterType="HashMap">
 		insert into users 
 			(userEmail, userPassword, userName, userSex, userAdr) 
 		values
-			(#{userEmail},#{userPassword},#{userName},#{userSex},#{userAdr});
+			(#{userEmail},#{userPassword},#{userName},#{userSex},#{userAdr})
 	</insert>
 	<select id="userSelect" parameterType="HashMap" resultType="HashMap">
 		select * from users
 		 where userEmail = #{userEmail}
 		   and userPassword = #{userPassword}
+		   and delYn = 'N'
 		 limit 1
 	</select>
 	<select id="usersFile" parameterType="HashMap" resultType="HashMap">
@@ -25,6 +26,11 @@
 			  	 from files
 			  	where files.userNo = users.userNo
 			) as 'userFiles'
-  		from users where users.userName = '#{userName}';
+  		from users where users.userName = '#{userName}'
 	</select>
+	<update id="userOut" parameterType="HashMap">
+		update users
+			set delYn = 'Y'
+		where userNo = #{userNo}
+	</update>
 </mapper>

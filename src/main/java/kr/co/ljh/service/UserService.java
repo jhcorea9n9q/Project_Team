@@ -89,5 +89,28 @@ public class UserService implements UserServiceInterFace {
 		map.put("list", list);
 		return map;
 	}
+	
+	@Override
+	public HashMap<String, Object> userOut(HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> list = (HashMap<String, Object>) session.getAttribute("user");
+		String UN = list.get("userNo").toString();
+		logger.info("현재 유저의 Number : " + UN);
+		
+		map.put("userNo", UN);
+		map.put("sql", "update");
+		map.put("sqlType", "user.userOut");
+		
+		int status = (int) dif.call(map);
+		if(status == 1) {
+			logger.info("유저 탈퇴함.");
+			session.invalidate();
+		}else if (status == 0) {
+			logger.info("유저 탈퇴 실패.");
+		}
+		map.put("status", status);
+		
+		return map;
+	}
 
 }

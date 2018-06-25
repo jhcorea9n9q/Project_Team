@@ -130,7 +130,7 @@ function qnalist(PageNumber, boardClass, tableId, boardSearch) {
 			}
 			var html = "<tr>";
 				html += "<td>"+(NewBoardNo+i)+"</td>";
-				html += "<td class='qa_btext'><a href='/ljh/page/main.html?boardNo=" + boardList.boardNo +"'>"+ boardList.boardTitle +"</a></td>";
+				html += "<td class='qa_btext'><a href='main.html?boardNo=" + boardList.boardNo +"'>"+ boardList.boardTitle +"</a></td>";
 				if(boardClass == "고객의견") {
 					html += "<td>" + comYN + "</td>";
 				} // 고객의견의 경우 관리자 체크 유무를 생성해줌.
@@ -201,11 +201,11 @@ function qnainsert(){
     	    		if(d.logincheck == "NO") { // 로그인되어있지 않을 시 로그인창으로 강제이동
     	    			alert("우선 로그인 해주십시오.");
     	    			localStorage.setItem("url", "login.html");
-    	    			location.href="/ljh/page/main.html";
+    	    			location.href="main.html";
     	    		}else{
     	    			if(d.status == 1) {
     	        			alert("작성이 완료되었습니다.");
-    	        			location.href="/ljh/page/main.html";
+    	        			location.href="main.html";
     	        		}else if(d.status == 0) {
     	        			alert("작성을 실패했습니다. 다시 시도해주십시오.");
     	        		}
@@ -220,7 +220,7 @@ function qnainsert(){
     $("#qa_rollback").off().on("click",function(){
     	var checkmessage = confirm("정말로 취소하시겠습니까?");
     	if(checkmessage == true){
-    		location.href="/ljh/page/main.html";
+    		location.href="main.html";
     	}
     });
 }
@@ -248,7 +248,7 @@ function QnAdetail(){
 				
 				// 취소 버튼 누를시 뒤로.
 				$("#qa_rollback2").off().on("click",function(){
-			    	location.href="/ljh/page/main.html";
+			    	location.href="main.html";
 			    });
 				
 				$.ajax({ // 로그인 세션 체크.
@@ -288,7 +288,7 @@ function QnAdetail(){
 							var d = JSON.parse(data);
 							if(d.status == 1) {
 								alert("글 확인이 완료되었습니다.");
-								location.href="/ljh/page/main.html";
+								location.href="main.html";
 							}else {
 								alert("제대로 확인되지 않았습니다.");
 							}
@@ -321,7 +321,7 @@ function QnAdetail(){
 						var Ud = JSON.parse(data);
 						if(Ud.status == 1) {
 							alert("작성글 " + d.boardTitle + " 의 수정이 완료되었습니다.");
-							location.href="/ljh/page/main.html?boardNo=" + bNo;
+							location.href="main.html?boardNo=" + bNo;
 						}else {
 							alert("해당 글의 내용이 제대로 수정되지 않았습니다.");
 						}
@@ -340,7 +340,7 @@ function QnAdetail(){
 							var d = JSON.parse(data);
 							if(d.status == 1) {
 								alert("글 삭제가 완료되었습니다.");
-								location.href="/ljh/page/main.html";
+								location.href="main.html";
 							}else {
 								alert("이런! 해당 글의 삭제를 실패했습니다.");
 							}
@@ -363,7 +363,7 @@ function QnAdetail(){
 				
 			} else { // 쿼리스트링 변경으로 못된 장난을 칠때
 				alert("잘못된 접근입니다.");
-				location.href="/ljh/page/main.html";
+				location.href="main.html";
 			}
 
 		});
@@ -477,7 +477,7 @@ function reservButtonClick(){
 						}else {
 							if(d.status == "1") { // 성공시
 								alert("예약이 완료되었습니다.");
-								location.href="/ljh/page/main.html";
+								location.href="main.html";
 							}else { // 실패시
 								alert("예약이 되지 않았습니다.");
 							}
@@ -490,7 +490,7 @@ function reservButtonClick(){
 			} else { // 로그인된 유저가 없을 때에는 로그인 화면으로.
 				alert("우선 로그인 해주십시오.");
     			localStorage.setItem("url", "login.html");
-    			location.href="/ljh/page/main.html";
+    			location.href="main.html";
 			}
 		});
 		

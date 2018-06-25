@@ -1,0 +1,16 @@
+/* 상단 */
+#header #menu{
+    width: 100%;
+    background-color: red;
+    left: 0%;
+}
+/* 중앙 */
+#main #mainframe{
+    width: 94%;
+    margin: 0 3%;
+}
+/* 하단 */
+footer #qna{
+    width: 100%;
+    margin: 0;
+}

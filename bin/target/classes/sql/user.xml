@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="emailCheck" parameterType="HashMap" resultType="HashMap">
+		select userEmail from users
+		where userEmail = #{userEmail} and delYn = 'N'
+		limit 1
+	</select>
+	<insert id="userInsert" parameterType="HashMap">
+		insert into users 
+			(userEmail, userPassword, userName, userSex, userAdr) 
+		values
+			(#{userEmail},#{userPassword},#{userName},#{userSex},#{userAdr})
+	</insert>
+	<select id="userSelect" parameterType="HashMap" resultType="HashMap">
+		select * from users
+		 where userEmail = #{userEmail}
+		   and userPassword = #{userPassword}
+		   and delYn = 'N'
+		 limit 1
+	</select>
+	<select id="usersFile" parameterType="HashMap" resultType="HashMap">
+		select ( select files.fileName
+			  	 from files
+			  	where files.userNo = users.userNo
+			) as 'userFiles'
+  		from users where users.userName = '#{userName}'
+	</select>
+	<update id="userOut" parameterType="HashMap">
+		update users
+			set delYn = 'Y'
+		where userNo = #{userNo}
+	</update>
+</mapper>

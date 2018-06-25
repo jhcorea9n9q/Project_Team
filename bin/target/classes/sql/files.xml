@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="files">
+	<insert id="filesInsert" parameterType="HashMap">
+		insert into files
+			(boardNo, userNo, fileName, fileURL, regDate) 
+		values 
+			(#{boardNo},#{userNo},#{fileName},#{fileURL},DATE_FORMAT(NOW(),'%Y%m%d'));
+	</insert>
+	<insert id="fileboardInsert" parameterType="HashMap">
+		insert into boardFiles
+			(userNo, rentZone, goodsClass, goods, cost) 
+		values 
+			(#{userNo},#{rentZone},#{goodsClass},#{goods},#{cost});
+	</insert>
+	<select id="fileboardCheck" parameterType="HashMap" resultType="HashMap">
+		select boardNo from boardFiles
+		where userNo = #{userNo}
+		group by boardNo desc
+		limit 1
+	</select>
+	<select id="filelist" parameterType="HashMap" resultType="HashMap">
+		select boardNo, rentZone,
+				(select files.fileURL
+					from files
+				  where files.boardNo = boardFiles.boardNo
+				) as fileURL,
+				goods,
+				cost
+		from boardFiles
+		where delYn = 'N' and reserv = 'N' and goodsClass = #{goodsClass};
+	</select>
+	<select id="res_userCheck" parameterType="HashMap" resultType="HashMap">
+		select boardFiles.userNo as userNo2,
+				(select userNo from users
+				where userName = #{userName} and delYn = 'N')
+				as userNo1
+		from boardFiles
+		where boardNo = #{boardNo} and delYn = 'N'
+	</select>
+	<update id="reserved" parameterType="HashMap">
+		update boardFiles
+		   set reserv = 'Y'
+		 where boardNo = #{boardNo}
+	</update>
+</mapper>

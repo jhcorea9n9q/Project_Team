@@ -168,9 +168,9 @@
         <button onclick="javascript:logout()" id="logoutB" type="button" width="80px" height="40px" margin="4px">로그아웃</button>
         <button class="adminNo" onclick="javascript:fileUpload()" type="button" width="80px" height="40px" margin="4px">매물 올리기</button>
         <button class="adminNo" onclick="javascript:userOut()" type="button" width="80px" height="40px" margin="4px">탈퇴하기</button>
-        <form>
+        <form enctype="multipart/form-data">
         	<p><b>매물 거래지역을 선택해 주세요.</b></p>
-        	<select>
+        	<select name="rentZone">
         		<option value="서울">서울</option>
         		<option value="인천">인천</option>
         		<option value="경기">경기</option>
@@ -182,14 +182,15 @@
         		<option value="제주">제주</option>
         	</select>
         	<div>
-	        	<input type="radio" name="goodstype" value="bag" checked="checked">가방
-	            <input type="radio" name="goodstype" value="watch">시계
+	        	<input type="radio" name="goodsClass" value="Y" checked="checked">가방
+	            <input type="radio" name="goodsClass" value="N">시계
         	</div>
-        	<input type="text" placeholder="물품 이름을 입력해주세요" maxlength="100" required="required"><br>
-        	<input type="text" placeholder="대여 비용을 입력해주세요." maxlength="100" required="required"><br>
-        	<input type="url" name="url" id="url"
-               placeholder="https://example.com"
-               required="required"><br>
+        	<input type="text" name="goods" placeholder="물품 이름을 입력해주세요" maxlength="100" required="required"><br>
+        	<input type="text" name="cost" placeholder="대여 비용을 입력해주세요." maxlength="100" required="required"><br>
+<!--         	<input type="url" name="url" id="url" -->
+<!--                placeholder="https://example.com" -->
+<!--                required="required"><br> -->
+			<input type="file" name="file" id="file"><br>
         	<input type="submit" value="바로 매물 등록!">
         </form>
     </section>

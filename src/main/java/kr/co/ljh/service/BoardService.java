@@ -22,11 +22,11 @@ public class BoardService implements BoardServiceInterFace {
 	DaoInterFace dif;
 	
 	@Override
-	public HashMap<String, Object> QnAList(HttpServletRequest req) {
+	public HashMap<String, Object> QnAList(HttpServletRequest req, String sqltype, String sqltype2) {
 		HashMap<String, Object> map = HttpUtil.getParamMap(req);
 		logger.info("가져온 데이터의 내용 : " + map);
 		List Map2;
-		map.put("sqlType", "board.board_Count");
+		map.put("sqlType", sqltype);
 		map.put("sql", "selectOne");
 		int PageNumber = Integer.parseInt(map.get("PageNumber").toString());
 		// 페이지 번호
@@ -45,12 +45,12 @@ public class BoardService implements BoardServiceInterFace {
 		}
 		
 		logger.info("현재 게시판 페이지 번호 : " + PageNumber + 
-						   "/ 고객의견 게시물의 총 개수 : " + AllCount +
-						   "/ 가져올 데이터의 개수 : " + CountMinus +
-						   "/ 리미트 걸기 : " + limitNo);
+						   " / 고객의견 게시물의 총 개수 : " + AllCount +
+						   " / 가져올 데이터의 개수 : " + CountMinus +
+						   " / 리미트 걸기 : " + limitNo);
 		map.put("limitNo", limitNo);
 		map.put("limitNo2", CountMinus);
-		map.put("sqlType", "board.board_CommentList");
+		map.put("sqlType", sqltype2);
 		map.put("sql", "selectList");
 		logger.info("게시판 list SQL문용 데이터 : " + map);
 		
@@ -73,8 +73,15 @@ public class BoardService implements BoardServiceInterFace {
 			String UN = list.get("userNo").toString();
 			logger.info("현재 글작성자 Number : " + UN);
 			
+			String boardClass = "고객의견";
+			if (UN.equals("1")) {
+				boardClass = "공지사항";
+			}
+			logger.info("입력할 테이블 : " + boardClass);
+			
+			
 			map.put("userNo", UN);
-			map.put("boardClass", "고객의견");
+			map.put("boardClass", boardClass);
 			map.put("sql", "insert");
 			map.put("sqlType", "board.boardInsert");
 			logger.info("boardinsert용 데이터 : " + map);

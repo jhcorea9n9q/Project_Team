@@ -8,4 +8,6 @@ public interface FileServiceInterFace {
 	HashMap<String, Object> fileupload(HttpServletRequest req);
 	
 	HashMap<String, Object> fileList(HttpServletRequest req);
+	
+	HashMap<String, Object> fileReserv(HttpServletRequest req);
 }

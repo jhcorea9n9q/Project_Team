@@ -26,4 +26,9 @@ public class FileController {
 		return HttpUtil.makeJsonView(fsif.fileList(req));
 	}
 	
+	@RequestMapping("/fileReserv")
+	public ModelAndView fileReserv(HttpServletRequest req) {
+		return HttpUtil.makeJsonView(fsif.fileReserv(req));
+	}
+	
 }

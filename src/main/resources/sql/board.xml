@@ -9,26 +9,41 @@
 		values 
 			(#{userNo},#{boardTitle},#{boardContents},#{boardClass},DATE_FORMAT(NOW(),'%Y%m%d'))
 	</insert>
-	<select id="board_Count" resultType="integer">
-		select count(*) as AllCount from board where board.boardClass = '고객의견' and delYn = 'N'
+	<select id="board_Count" resultType="integer" parameterType="HashMap">
+		select count(*) as AllCount from board where board.boardClass = #{boardClass} and delYn = 'N'
+	</select>
+	
+	<select id="board_Count2" resultType="integer" parameterType="HashMap">
+		select count(*) as AllCount from board
+		where board.boardClass = #{boardClass} and delYn = 'N' and
+		boardTitle like #{boardSearch}
 	</select>
 	
 	<select id="board_CommentList" parameterType="HashMap" resultType="HashMap">
 		select * from board
-			where boardClass = '고객의견' and delYn = 'N'
+			where boardClass = #{boardClass} and delYn = 'N'
 		limit #{limitNo}, #{limitNo2}
+	</select>
+	
+	<select id="board_Search" parameterType="HashMap" resultType="HashMap">
+		select * from board
+		where boardClass = #{boardClass} and
+			  delYn = 'N' and
+			  boardTitle like #{boardSearch}
+		      limit #{limitNo}, #{limitNo2}
 	</select>
 	
 	<select id="boardDetail" parameterType="HashMap" resultType="HashMap">
 		select boardTitle,
 		       boardContents,
 		       comYn,
+		       boardClass,
 		       (select users.userName
 		          from users
 		         where users.userNo = board.userNo)
 		       as userNo
 			from board
-			where boardNo = #{boardNo} and delYn = 'N' and boardClass = '고객의견'
+			where boardNo = #{boardNo} and delYn = 'N'
 	</select>
 	
 	<update id="boardUp" parameterType="HashMap">

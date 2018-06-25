@@ -22,7 +22,7 @@
 		limit 1
 	</select>
 	<select id="filelist" parameterType="HashMap" resultType="HashMap">
-		select rentZone,
+		select boardNo, rentZone,
 				(select files.fileURL
 					from files
 				  where files.boardNo = boardFiles.boardNo
@@ -32,4 +32,17 @@
 		from boardFiles
 		where delYn = 'N' and reserv = 'N' and goodsClass = #{goodsClass};
 	</select>
+	<select id="res_userCheck" parameterType="HashMap" resultType="HashMap">
+		select boardFiles.userNo as userNo2,
+				(select userNo from users
+				where userName = #{userName} and delYn = 'N')
+				as userNo1
+		from boardFiles
+		where boardNo = #{boardNo} and delYn = 'N'
+	</select>
+	<update id="reserved" parameterType="HashMap">
+		update boardFiles
+		   set reserv = 'Y'
+		 where boardNo = #{boardNo}
+	</update>
 </mapper>

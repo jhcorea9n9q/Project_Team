@@ -84,6 +84,33 @@ public class FileService implements FileServiceInterFace {
 		
 		return resultMap;
 	}
+
+	@Override
+	public HashMap<String, Object> fileReserv(HttpServletRequest req) {
+		HashMap<String, Object> param = HttpUtil.getParamMap(req);
+		HashMap<String, Object> userCheck = new HashMap<String, Object>();
+		param.put("sqlType", "res_userCheck");
+		param.put("sql", "selectOne");
+		logger.info("param에 담긴 내용 확인. : " + param);
+		
+		userCheck = (HashMap<String, Object>) dif.call(param);
+		logger.info("유저체크 : " + userCheck);
+		String userNo1 = userCheck.get("userNo1").toString();
+		String userNo2 = userCheck.get("userNo2").toString();
+		if(userNo1.equals(userNo2)) {
+			userCheck.put("userCheck", "0");
+		}else {
+			userCheck.put("userCheck", "1");
+			param.put("sqlType", "files.reserved");
+			param.put("sql", "update");
+			
+			int status = (int) dif.call(param);
+			userCheck.put("status", status);
+			logger.info("status 확인 : " + status);
+		}
+		
+		return userCheck;
+	}
 	
 
 

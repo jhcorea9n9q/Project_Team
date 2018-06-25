@@ -19,7 +19,12 @@ public class BoardController {
 	
 	@RequestMapping("/QnAboardList")
 	public ModelAndView QnAList(HttpServletRequest req) {
-		return HttpUtil.makeJsonView(bsif.QnAList(req));
+		return HttpUtil.makeJsonView(bsif.QnAList(req, "board.board_Count", "board.board_CommentList"));
+	}
+	
+	@RequestMapping("/QnASearchList")
+	public ModelAndView QnASearchList(HttpServletRequest req) {
+		return HttpUtil.makeJsonView(bsif.QnAList(req, "board.board_Count2", "board.board_Search"));
 	}
 	
 	@RequestMapping("/QnAinsert")

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 public interface BoardServiceInterFace {
 
-	public HashMap<String, Object> QnAList(HttpServletRequest req);
+	public HashMap<String, Object> QnAList(HttpServletRequest req, String sqltype, String sqltype2);
 	
 	public HashMap<String, Object> QnAinsert(HttpServletRequest req, HttpSession session);
 	

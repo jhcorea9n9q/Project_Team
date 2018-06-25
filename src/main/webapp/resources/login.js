@@ -140,7 +140,7 @@ function fileUpload() {
 				var d = JSON.parse(data);
 				if(d.upload == "OK") {
 					alert("매물 등록 성공.");
-					location.href="/ljh/page/main.html";
+					location.href="main.html";
 				}else {
 					alert("매물 등록 실패.");
 				}

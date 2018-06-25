@@ -229,7 +229,7 @@ function qnainsert(){
 function QnAdetail(){ 
 	var Qu;
 	var query = window.location.href.slice(window.location.href.indexOf('?') + 1);
-	if(query!="http://localhost:8080/ljh/page/main.html"){
+	if(query!="http://gudi.iptime.org:10091/ljh/page/main.html"){
 		Qu = query.split('=');
 		var bNo = Qu[1];
 		$.ajax({
